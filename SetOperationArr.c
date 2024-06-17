@@ -1,0 +1,108 @@
+//Set Operations:Union,Intersection,Difference,Set Membership
+#include<stdio.h>
+#include<stdlib.h>
+struct Array
+{
+    int A[10];
+    int size;
+    int len;
+};
+int Display(struct Array arr)
+{
+    int i;
+    printf("Print Array ele:");
+    for (i = 0;i<arr.len;i++)
+        printf("%d ",arr.A[i]);
+}
+
+/*struct Array* Union(struct Array *arr1, struct Array *arr2)
+{
+    int i = 0, j = 0, k = 0;
+    struct Array *arr3 = (struct Array *)malloc(sizeof(struct Array));
+
+    while (i < arr1->len && j < arr2->len)
+    {
+        if (arr1->A[i] < arr2->A[j])//if Arr1 is smaller
+            arr3->A[k++] = arr1->A[i++];
+        else if (arr1->A[i] > arr2->A[j])//if arr2 is smaller
+            arr3->A[k++] = arr2->A[j++];
+        else//if both are equal
+        {
+            arr3->A[k++] = arr1->A[i++];
+            j++;
+        }
+    }
+
+    for (; i < arr1->len; i++)
+        arr3->A[k++] = arr1->A[i];
+    for (; j < arr2->len; j++)
+        arr3->A[k++] = arr2->A[j];
+    
+    arr3->len = k;
+    arr3->size = 10;
+
+    return arr3;
+}*/
+/*struct Array* Intersection(struct Array *arr1, struct Array *arr2)
+{
+    int i = 0, j = 0, k = 0;
+    struct Array *arr3 = (struct Array *)malloc(sizeof(struct Array));
+
+    while (i < arr1->len && j < arr2->len)
+    {
+        if (arr1->A[i] < arr2->A[j])//if Arr1 is smaller
+			i++;
+        else if (arr1->A[i] > arr2->A[j])//if arr2 is smaller
+			j++;
+        else//if both are equal
+        {
+            arr3->A[k++] = arr1->A[i++];
+            j++;
+        }
+    }
+    arr3->len = k;
+    arr3->size = 10;
+
+    return arr3;
+}*/
+struct Array* Difference(struct Array *arr1, struct Array *arr2)
+{
+    int i = 0, j = 0, k = 0;
+    struct Array *arr3 = (struct Array *)malloc(sizeof(struct Array));
+
+    while (i < arr1->len && j < arr2->len)
+    {
+        if (arr1->A[i] < arr2->A[j])//if Arr1 is smaller
+            arr3->A[k++] = arr1->A[i++];
+        else if (arr1->A[i] > arr2->A[j])//if arr2 is smaller
+			j++;
+        else//if both are equal
+        {
+        	i++;
+            j++;
+        }
+    }
+
+    for (; i < arr1->len; i++)
+        arr3->A[k++] = arr1->A[i];
+    arr3->len = k;
+    arr3->size = 10;
+
+    return arr3;
+}
+int main()
+{
+    struct Array arr1 = { {2, 3, 6, 7, 10}, 10, 5 };
+    struct Array arr2 = { {1, 3, 5, 7, 9}, 10, 5 };
+    struct Array *arr3;
+
+    //arr3 = Union(&arr1, &arr2);
+    //arr3=Intersection(&arr1,&arr2);
+    arr3=Difference(&arr1,&arr2);
+    Display(*arr3);
+
+    free(arr3); // Don't forget to free the dynamically allocated memory
+
+    return 0;
+}
+
